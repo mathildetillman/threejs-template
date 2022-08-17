@@ -2,6 +2,8 @@
 
 A simple rotating box with orbiting spheres.
 
+<img src="https://user-images.githubusercontent.com/36053435/185161726-b69b90c8-0796-4803-9147-b37bf579ade4.png" width="400">
+
 ## Setup
 
 Run following commands:
