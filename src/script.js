@@ -4,7 +4,7 @@ import {
   PerspectiveCamera,
   WebGLRenderer,
   PointLight,
-  BoxGeometry,
+  BoxBufferGeometry,
   MeshLambertMaterial,
   Mesh,
   PointLightHelper,
@@ -29,7 +29,7 @@ const camera = new PerspectiveCamera(
   75, // Field of view (FOV) - degrees of vertical field of view - how much we can see
   window.innerWidth / window.innerHeight, // Aspect ratio - ratio between widt and height of scene
   0.6, // Near clipping plane - boundary plane closest to camera - we can't see anything closer than this
-  1200 // Far clipping plane - boundary plane furthest from camera - we can't see anything beyond this
+  100 // Far clipping plane - boundary plane furthest from camera - we can't see anything beyond this
 );
 camera.position.z = 5; // Offset camera position
 scene.add(camera);
@@ -86,7 +86,7 @@ for (let i = 0; i < lightValues.length; i++) {
 }
 
 //* CREATE BOX
-const boxGeometry = new BoxGeometry(2, 2, 2); // width, height, depth
+const boxGeometry = new BoxBufferGeometry(2, 2, 2); // width, height, depth
 const boxMatieral = new MeshLambertMaterial({ color: 0xffffff }); // material for non-shiny surfaces (untreated wood or stone)
 const boxMesh = new Mesh(boxGeometry, boxMatieral); // make mesh with geometry and material
 boxMesh.rotation.set(40, 0, 40); // x, y, z
