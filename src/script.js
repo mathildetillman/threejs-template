@@ -1,5 +1,16 @@
 import "./style.css";
-import * as THREE from "three";
+import {
+  Scene,
+  PerspectiveCamera,
+  WebGLRenderer,
+  PointLight,
+  BoxGeometry,
+  MeshLambertMaterial,
+  Mesh,
+  PointLightHelper,
+  SphereGeometry,
+  AxesHelper,
+} from "three/build/three.module.js";
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
 
 //* SETUP
@@ -11,10 +22,10 @@ const sizes = {
 
 // Canvas, scene, and light
 const canvas = document.querySelector("canvas.webgl");
-const scene = new THREE.Scene();
+const scene = new Scene();
 
 // Camera
-const camera = new THREE.PerspectiveCamera(
+const camera = new PerspectiveCamera(
   75, // Field of view (FOV) - degrees of vertical field of view - how much we can see
   window.innerWidth / window.innerHeight, // Aspect ratio - ratio between widt and height of scene
   0.6, // Near clipping plane - boundary plane closest to camera - we can't see anything closer than this
@@ -24,7 +35,7 @@ camera.position.z = 5; // Offset camera position
 scene.add(camera);
 
 // Renderer
-const renderer = new THREE.WebGLRenderer({
+const renderer = new WebGLRenderer({
   canvas: canvas,
   antialias: true, // Antialias = smooth edges
 });
@@ -59,7 +70,7 @@ const lightValues = [
   { colour: 0x90f615, intensity: 6, dist: 12, x: -10, y: -1, z: 0 },
 ];
 for (let i = 0; i < lightValues.length; i++) {
-  lights[i] = new THREE.PointLight(
+  lights[i] = new PointLight(
     lightValues[i]["colour"],
     lightValues[i]["intensity"],
     lightValues[i]["dist"]
@@ -70,29 +81,29 @@ for (let i = 0; i < lightValues.length; i++) {
     lightValues[i]["z"]
   );
   scene.add(lights[i]);
-  lightHelpers[i] = new THREE.PointLightHelper(lights[i], 0.7);
+  lightHelpers[i] = new PointLightHelper(lights[i], 0.7);
   //   scene.add(lightHelpers[i]);
 }
 
 //* CREATE BOX
-const boxGeometry = new THREE.BoxGeometry(2, 2, 2); // width, height, depth
-const boxMatieral = new THREE.MeshLambertMaterial({ color: 0xffffff }); // material for non-shiny surfaces (untreated wood or stone)
-const boxMesh = new THREE.Mesh(boxGeometry, boxMatieral); // make mesh with geometry and material
+const boxGeometry = new BoxGeometry(2, 2, 2); // width, height, depth
+const boxMatieral = new MeshLambertMaterial({ color: 0xffffff }); // material for non-shiny surfaces (untreated wood or stone)
+const boxMesh = new Mesh(boxGeometry, boxMatieral); // make mesh with geometry and material
 boxMesh.rotation.set(40, 0, 40); // x, y, z
 scene.add(boxMesh);
 
 // CREATE SPHERES
 const sphereMeshes = [];
-const sphereGeometry = new THREE.SphereGeometry(0.1, 32, 32);
-const sphereMaterial = new THREE.MeshLambertMaterial({ color: 0xc56cef });
+const sphereGeometry = new SphereGeometry(0.1, 32, 32);
+const sphereMaterial = new MeshLambertMaterial({ color: 0xc56cef });
 for (let i = 0; i < 4; i++) {
-  sphereMeshes[i] = new THREE.Mesh(sphereGeometry, sphereMaterial);
+  sphereMeshes[i] = new Mesh(sphereGeometry, sphereMaterial);
   sphereMeshes[i].position.set(0, 0, 0);
   scene.add(sphereMeshes[i]);
 }
 
 //* AXES HELPER
-const axesHelper = new THREE.AxesHelper(5);
+const axesHelper = new AxesHelper(5);
 // scene.add(axesHelper); // X == red, Y == green, Z == blue
 
 //* CAMERA TRACKBALL CONTROLS
