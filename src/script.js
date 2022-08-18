@@ -10,7 +10,7 @@ import {
   PointLightHelper,
   SphereGeometry,
   AxesHelper,
-} from "three/build/three.module.js";
+} from "three";
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
 
 //* SETUP
@@ -21,7 +21,7 @@ const sizes = {
 };
 
 // Canvas, scene, and light
-const canvas = document.querySelector("canvas.webgl");
+const canvas = document.getElementById("scene");
 const scene = new Scene();
 
 // Camera
